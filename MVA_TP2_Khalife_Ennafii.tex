@@ -1,0 +1,115 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University Assignment Title Page 
+% LaTeX Template
+% Version 1.0 (27/12/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% WikiBooks (http://en.wikibooks.org/wiki/LaTeX/Title Creation)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+% Instructions for using this template:
+% This title page is capable of being compiled as is. This is not useful for 
+% including it in another document. To do this, you have two options: 
+%
+% 1) Copy/paste everything between \begin{document} and \end{document} 
+% starting at \begin{titlepage} and paste this into another LaTeX file where you 
+% want your title page.
+% OR
+% 2) Remove everything outside the \begin{titlepage} and \end{titlepage} and 
+% move this file to the same directory as the LaTeX file you wish to add it to. 
+% Then add \input{./title page_1.tex} to your LaTeX file where you want your
+% title page.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}  
+\usepackage[T1]{fontenc} 
+\usepackage[top=1cm,bottom=1cm,left=0.5cm,right=1.5cm,asymmetric]{geometry}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[R]{\textit{Master MVA : Graphs in Machine Learning }}
+\fancyfoot[L]{\textit{}}
+%\usepackage{unicode-math}
+%\setmathfont{XITS Math}
+%\setmathfont[version=setB,StylisticSet=1]{XITS Math}
+\usepackage{array,multirow,makecell}
+\setcellgapes{1pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{1pt}
+\fancyfoot[L]{\textit{}}
+\newcommand{\cond}{(x_i|x_{\pi_i})}
+
+%\usepackage{caption}
+%\usepackage{subcaption}
+
+
+%\usepackage{unicode-math}
+%\setmathfont{XITS Math}
+%\setmathfont[version=setB,StylisticSet=1]{XITS Math}
+
+
+%\geometry{hmargin=1.5cm,vmargin=2cm}   
+
+\geometry{hmargin=2.5cm,vmargin=2cm}   
+\begin{document}
+
+\section*{Graphs in Machine Learning : TP2}
+\section*{Sammy Khalife}
+\subsubsection*{24/02/2015}
+
+class 4 slide 36 - 41 for HFS and CHFS
+~\\
+sogma term in exponential be careful : debug
+0.025
+2~\\
+~\\
+openCV~\\
+cap=cv.VideoCapture('.avi')~\\
+cap.read~\\
+section 2 = use open CV~\\
+2 steps :~\\
+-cascade detector : c.detect : list of boxes~\\
+-treat data smoothing 96 *96 image into a feature vector~\\
+Hard part : ~\\
+- build similarity metrics : compare 2 faces with 2 vectors : compute weights to create invariance~\\
+-labels = my face and face of other guys.~\\
+-implement recognition part : propagate labels using HFS~\\
+-centroid method to add node to a graph~\\
+Difficulty of the third part : ~\\
+keep track which of which node is playing centroid role for nodes~\\
+Make link between nodes and centroids
+-nodesToCentroids.map[1:t];~\\
+-centroidsToNodes.map[]~\\
+-at the end compute Laplacian of the centroids~\\
+-HFS on this Laplacian~\\
+-How to update the structure? : accumulate a bunch of nodes, 200, 300 steps : does not work online : small cost at each step. instead of adding at each step, find 2 closest centroids in the approximations, do not remove the labeled nodes~\\
+-keep a taboo list~\\
+-cadd~\\
+-crep~\\
+~\\
+find two close centroids, merge labels associated to the 2 close centroids, and new labels associated to the vacant centroid
+\end{document}
