@@ -1,8 +1,9 @@
 function [accuracy] = compute_hfs(graph_type, graph_thresh)
 addpath('generate_data');
+addpath('plot_graph');
 %%%%%%%%%%%% the number of samples to generate
 num_samples = 100;
-
+N=num_samples;
 %%%%%%%%%%%% the sample distribution function with the options necessary for the
 %%%%%%%%%%%% distribuion
 
@@ -69,14 +70,26 @@ L = D-W;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % compute hfs solution                                      %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-n_l=4;
-idxs = randi(size(L,1),n_l,1);
+n_l=70;
+idxs = randperm(size(L,1),n_l);
 l_idx = idxs; %pickup 4 random labels of samples
 u_idx = 1:N; u_idx(idxs)=[];
 
+C=zeros(size(X,1),size(X,1));
+for i=1:size(X,1)
+    if ismember(i,l_idx)
+        C(i,i)=1;
+    else
+        C(i,i)=0.1;
+    end 
+end
+
+
+
+
 Yl = zeros(length(l_idx),2);
 for i=1:length(l_idx)
-Yl(i,:) = [Y(l_idxs(i)),1-Y(l_idxs(i))];
+Yl(i,:) = [Y(l_idx(i)),3-Y(l_idx(i))];
 end
 Luu=L(u_idx,u_idx);
 Lul=L(u_idx,l_idx);
@@ -85,8 +98,10 @@ Yu = Luu\(-Lul*Yl);
 %Yl = zeros(length(Y),2);
 %Yl= ;
 %SYu = ;
-
-
+gamma_g=0.01;
+I=eye(size(L,1));
+Q=L + gamma_g*I;
+SYu= (C\Q+I)\[Yl;Yu];
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -94,8 +109,8 @@ Yu = Luu\(-Lul*Yl);
 % compute the labels assignment from the HFS solution       %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% [~,label] = ;
-% [~,soft_label] = ;
+[~,label] = max(Yu,[],2);
+[~,soft_label] = max(SYu);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
